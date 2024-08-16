@@ -1,0 +1,55 @@
+
+<html xmlns:sec="">
+<head >
+    <title>Главная страница</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <!-- Отображение имени пользователя -->
+    <h3>${pageContext.request.userPrincipal.name}</h3>
+
+    <!-- Если пользователь не аутентифицирован -->
+    <sec:authorize access="!isAuthenticated()">
+        <h4><a href="${pageContext.request.contextPath}/login">Войти</a></h4>
+        <h4><a href="${pageContext.request.contextPath}/registration">Зарегистрироваться</a></h4>
+    </sec:authorize>
+
+    <!-- Если пользователь аутентифицирован -->
+    <sec:authorize access="isAuthenticated()">
+        <h4><a href="${pageContext.request.contextPath}/logout">Выйти</a></h4>
+    </sec:authorize>
+
+    <!-- Другие ссылки -->
+    <h4><a href="${pageContext.request.contextPath}/news">Новости (только для пользователей)</a></h4>
+    <h4><a href="${pageContext.request.contextPath}/admin">Пользователи (только для админов)</a></h4>
+</div>
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Главная страница</title>
+</head>
+<body>
+<div>
+    <!-- Отображение имени пользователя -->
+    <h3 th:text="${#httpServletRequest.userPrincipal.name}"></h3>
+
+    <!-- Если пользователь не аутентифицирован -->
+    <sec:authorize access="!isAuthenticated()">
+        <h4><a th:href="@{/login}">Войти</a></h4>
+        <h4><a th:href="@{/registration}">Зарегистрироваться</a></h4>
+    </sec:authorize>
+
+    <!-- Если пользователь аутентифицирован -->
+    <sec:authorize access="isAuthenticated()">
+        <h4><a th:href="@{/logout}">Выйти</a></h4>
+    </sec:authorize>
+
+    <!-- Другие ссылки -->
+    <h4><a th:href="@{/news}">Новости (только для пользователей)</a></h4>
+    <h4><a th:href="@{/admin}">Пользователи (только для админов)</a></h4>
+</div>
+</body>
+</html>
